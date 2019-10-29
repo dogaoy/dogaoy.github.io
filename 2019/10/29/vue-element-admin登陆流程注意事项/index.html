@@ -6,14 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/8 | dogao&#39;s blog</title>
+  <title>vue-element-admin登陆流程注意事项 | dogao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="dogao&#39;s blog">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;08&#x2F;index.html">
+  <meta name="description" content="1.准备环境下载vue-element-admin框架，然后在根目录输入npm install,安装完毕之后运行命令npm run dev展示页面如下">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-element-admin登陆流程注意事项">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;index.html">
 <meta property="og:site_name" content="dogao&#39;s blog">
+<meta property="og:description" content="1.准备环境下载vue-element-admin框架，然后在根目录输入npm install,安装完毕之后运行命令npm run dev展示页面如下">
 <meta property="og:locale" content="cn">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;login.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;controller.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;pojo1.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;pojo2.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;vueeditor1.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;complete1.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;complete2.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;complete3.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;complete4.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;logincomplete1.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;logincomplete2.jpg">
+<meta property="og:updated_time" content="2019-10-29T05:51:55.415Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;29&#x2F;vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9&#x2F;login.jpg">
   
     <link rel="alternative" href="/atom.xml" title="dogao&#39;s blog" type="application/atom+xml">
   
@@ -147,250 +163,115 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-vue-element-admin登陆流程注意事项" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue-element-admin登陆流程注意事项
+    </h1>
+  
+
+        
+        <a href="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="archive-article-date">
+  	<time datetime="2019-10-29T02:37:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-29</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-准备环境"><a href="#1-准备环境" class="headerlink" title="1.准备环境"></a>1.准备环境</h2><p>下载vue-element-admin框架，然后在根目录输入<code>npm install</code>,安装完毕之后运行命令<code>npm run dev</code>展示页面如下<br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/login.jpg" alt></p>
+<a id="more"></a>
+<h2 id="2-后台代码"><a href="#2-后台代码" class="headerlink" title="2.后台代码"></a>2.后台代码</h2><p>采用springboot+shiro作为简单的后台登陆，后台登陆代码如下<br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/controller.jpg" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ResponseBody</span></span><br><span class="line">	<span class="meta">@RequestMapping</span>(value=<span class="string">"/user/login"</span>,method = RequestMethod.POST)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> ResponseResult <span class="title">login</span><span class="params">(String username, String password)</span></span>&#123;</span><br><span class="line">		Subject subject = SecurityUtils.getSubject();</span><br><span class="line"></span><br><span class="line">		JSONObject result = <span class="keyword">new</span> JSONObject();</span><br><span class="line">		ResponseResult responseResult = <span class="keyword">new</span> ResponseResult();</span><br><span class="line">		UsernamePasswordToken token = <span class="keyword">new</span> UsernamePasswordToken(username, password);</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">            subject.login(token);</span><br><span class="line">			result.put(<span class="string">"token"</span>,  <span class="string">"1"</span>);</span><br><span class="line">			responseResult.setData(result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (AuthenticationException e) &#123;</span><br><span class="line">            token.clear();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">return</span> responseResult;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@ResponseBody</span></span><br><span class="line">	<span class="meta">@RequestMapping</span>(value=<span class="string">"/user/info"</span>,method = RequestMethod.GET)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">info</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String[] roles = &#123;<span class="string">"admin"</span>&#125;;</span><br><span class="line">		UserInfo userInfo = <span class="keyword">new</span> UserInfo();</span><br><span class="line">		userInfo.setAvatar(<span class="string">"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"</span>);</span><br><span class="line">		userInfo.setIntroduction(<span class="string">"I am a super administrator1"</span>);</span><br><span class="line">		userInfo.setName(<span class="string">"Super Admin"</span>);</span><br><span class="line">		userInfo.setRoles(roles);</span><br><span class="line">		ResponseResult responseResult = <span class="keyword">new</span> ResponseResult();</span><br><span class="line">		responseResult.setData(userInfo);</span><br><span class="line">		<span class="keyword">return</span> responseResult;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>对应的相关返回类<br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/pojo1.jpg" alt><br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/pojo2.jpg" alt></p>
+<p>ResponseResult</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ResponseResult</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> code = <span class="number">200</span>;</span><br><span class="line">	<span class="keyword">private</span> String msg;</span><br><span class="line">	<span class="keyword">private</span> Object data;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>userInfo</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInfo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String introduction;</span><br><span class="line">    <span class="keyword">private</span> String avatar;</span><br><span class="line">    <span class="keyword">private</span> String[] roles;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-修改vue-element-admin配置环境"><a href="#3-修改vue-element-admin配置环境" class="headerlink" title="3.修改vue-element-admin配置环境"></a>3.修改vue-element-admin配置环境</h2><p>1、现在vue-config修改获取后台数据的配置地址，本框架是基于mock来获取数据的。相关目录结构在<a href="https://panjiachen.github.io/vue-element-admin-site/zh/" target="_blank" rel="noopener">vue-element-admin</a>文档有所介绍<br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/vueeditor1.jpg" alt><br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/complete1.jpg" alt><br>然后再去修改本地的环境配置文件<br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/complete2.jpg" alt><br>然后登陆界面会限制你只用admin和editor登陆，所以看情况修改该限制条件，这里我将下面的email规则复制上来。<br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/complete3.jpg" alt></p>
+<h4 id="特别注意"><a href="#特别注意" class="headerlink" title="特别注意"></a>特别注意</h4><p>我们的request.js文件还要修改一下后台返回来的code，我的返回code是200，所以在下图位置更改成200<br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/complete4.jpg" alt></p>
+<h2 id="4-登陆"><a href="#4-登陆" class="headerlink" title="4.登陆"></a>4.登陆</h2><p><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/logincomplete1.jpg" alt><br><img src="/2019/10/29/vue-element-admin%E7%99%BB%E9%99%86%E6%B5%81%E7%A8%8B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/logincomplete2.jpg" alt><br>显示以上界面就算登陆成功</p>
+<h2 id="5-注意事项"><a href="#5-注意事项" class="headerlink" title="5.注意事项"></a>5.注意事项</h2><ul>
+<li>vue前端登陆的时候会向后端获取一个token，并且会触发/user/info接口</li>
+<li>/user/info接口，后端返回的roles要为数组形式。不然个人主页的左边usercard组件会显示不出来</li>
+<li>后台要做跨域，如果用springboot直接在方法使用注解即可<h2 id="6-参考文章"><a href="#6-参考文章" class="headerlink" title="6.参考文章"></a>6.参考文章</h2></li>
+<li><a href="https://juejin.im/post/591aa14f570c35006961acac" target="_blank" rel="noopener">手摸手，带你用vue撸后台 系列二(登录权限篇)</a></li>
+<li><a href="https://www.cnblogs.com/fqh123/p/11094296.html" target="_blank" rel="noopener">vue-element-admin登录逻辑，以及动态添加路由，显示侧边栏</a></li>
+<li><a href="https://blog.csdn.net/weixin_43764814/article/details/101315585" target="_blank" rel="noopener">vue-element-admin登录流程</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/23/thymleaf%E4%B8%AD%E7%9A%84th-text%E5%92%8Cth-utext%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2019-08-23T09:59:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/23/thymleaf%E4%B8%AD%E7%9A%84th-text%E5%92%8Cth-utext%E7%9A%84%E5%8C%BA%E5%88%AB/">thymleaf中的th:text和th:utext的区别</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">thymleaf</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/23/linux%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql/" class="archive-article-date">
-  	<time datetime="2019-08-23T09:57:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/23/thymleaf%E4%B8%AD%E7%9A%84th-text%E5%92%8Cth-utext%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">thymleaf中的th:text和th:utext的区别</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/23/linux%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5mysql/">linux开启远程连接mysql</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/23/mysql%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/" class="archive-article-date">
-  	<time datetime="2019-08-23T09:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/23/mysql%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81/">mysql中文乱码</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/23/SSH%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88/" class="archive-article-date">
-  	<time datetime="2019-08-23T09:47:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/23/SSH%E4%B8%89%E5%A4%A7%E6%A1%86%E6%9E%B6%E6%95%B4%E5%90%88/">SSH三大框架整合</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/23/springsecurity%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD/" class="archive-article-date">
-  	<time datetime="2019-08-23T09:37:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/23/springsecurity%E5%AE%9E%E7%8E%B0%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD/">springsecurity实现登录功能</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">springsecurity</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/12/github-hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/" class="archive-article-date">
-  	<time datetime="2019-08-12T02:47:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/12/github-hexo%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E5%8D%9A%E5%AE%A2/">github+hexo搭建自己的博客</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">搭建</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -413,8 +294,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
