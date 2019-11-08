@@ -149,6 +149,185 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-es6笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/08/es6%E7%AC%94%E8%AE%B0/">es6笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/08/es6%E7%AC%94%E8%AE%B0/" class="archive-article-date">
+  	<time datetime="2019-11-08T02:10:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看vue学习视频的同学的笔记<br><a href="https://github.com/zhangtianyi0110/VueLearnNotes" target="_blank" rel="noopener">https://github.com/zhangtianyi0110/VueLearnNotes</a></p>
+<h1 id="（一）ES6补充"><a href="#（一）ES6补充" class="headerlink" title="（一）ES6补充"></a>（一）ES6补充</h1><h2 id="1-1块级作用域"><a href="#1-1块级作用域" class="headerlink" title="1.1块级作用域"></a>1.1块级作用域</h2><p>​    ES6之前没有块级作用域，ES5的var没有块级作用域的概念，只有function有作用域的概念，ES6的let、const引入了块级作用域。</p>
+<p>​    ES5之前if和for都没有作用域，所以很多时候需要使用function的作用域，比如闭包。</p>
+<h3 id="1-1-1-什么是变量作用域"><a href="#1-1-1-什么是变量作用域" class="headerlink" title="1.1.1    什么是变量作用域"></a>1.1.1    什么是变量作用域</h3><p>​    变量在什么范围内可用，类似Java的全局变量和局部变量的概念，全局变量，全局都可用，局部变量只在范围内可用。ES5之前的var是没有块级作用域的概念，使用var声明的变量就是全局的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="keyword">var</span> name = <span class="string">'zzz'</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(name);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br></pre></td></tr></table></figure>
+
+<p>​    上述代码中{}外的<code>console.log(name)</code>可以获取到name值并打印出来，用var声明赋值的变量是全局变量，没有块级作用域。</p>
+<h3 id="1-1-2-没有块级作用域造成的问题"><a href="#1-1-2-没有块级作用域造成的问题" class="headerlink" title="1.1.2    没有块级作用域造成的问题"></a>1.1.2    没有块级作用域造成的问题</h3><h4 id="if块级"><a href="#if块级" class="headerlink" title="if块级"></a>if块级</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func;</span><br><span class="line"><span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">	<span class="keyword">var</span> name = <span class="string">'zzz'</span>;</span><br><span class="line">	func = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="built_in">console</span>.log(name);</span><br><span class="line">	&#125;</span><br><span class="line">	func();</span><br><span class="line">&#125;</span><br><span class="line">name = <span class="string">'ttt'</span>;</span><br><span class="line">func();</span><br><span class="line"><span class="built_in">console</span>.log(name);</span><br></pre></td></tr></table></figure>
+
+<p>​    代码输出结果为<code>&#39;zzz&#39;,&#39;ttt&#39;,&#39;ttt&#39;</code>，第一次调用func()，此时name=‘zzz’，在if块外将name置成‘ttt’，此时生效了，if没有块级作用域。</p>
+<h4 id="for块级"><a href="#for块级" class="headerlink" title="for块级"></a>for块级</h4><p>​    定义五个按钮，增加事件，点击哪个按钮打印“第哪个按钮被点击了”。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>块级作用域<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮3<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮4<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮5<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"</span>&gt;</span>    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 3.没有块级作用域引起的问题:for块级</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> btns = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"button"</span>);</span></span><br><span class="line"><span class="actionscript">      <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; btns.length; i++) &#123;</span></span><br><span class="line"><span class="actionscript">        btns[i].addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> <span class="params">(param)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">"第"</span>+i+<span class="string">"个按钮被点击了"</span>);</span></span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    for块级中使用<code>var</code>声明变量i时，是全局变量，点击任意按钮结果都是“第五个按钮被点击了”。说明在执行<code>btns[i].addEventListener(&#39;click&#39;,function())</code>时，for块级循环已经走完，此时<code>i=5</code>，所有添加的事件的i都是5。</p>
+<p>​    改造上述代码，将for循环改造，由于函数有作用域，使用闭包能解决上述问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用闭包,函数有作用域</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; btns.length; i++) &#123;</span><br><span class="line">  (<span class="function"><span class="keyword">function</span> (<span class="params">i</span>) </span>&#123;</span><br><span class="line">    btns[i].addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> (<span class="params">param</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"第"</span>+i+<span class="string">"个按钮被点击了"</span>);</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    结果如图所示，借用函数的作用域解决块级作用域的问题，因为有块级作用域，每次添加的i都是当前i。</p>
+<p><img src="/2019/11/08/es6%E7%AC%94%E8%AE%B0/1.1.2-1.png" alt></p>
+<p>​    在ES6中使用let/const解决块级作用域问题，let和const有块级作用域，const定义常量，在for块级中使用let解决块级作用域问题。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ES6使用let/const</span></span><br><span class="line"><span class="keyword">const</span> btns = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"button"</span>);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; btns.length; i++) &#123;</span><br><span class="line">  btns[i].addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> (<span class="params">param</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"第"</span>+i+<span class="string">"个按钮被点击了"</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    结果和使用闭包解决一致。</p>
+<h2 id="1-2-const的使用"><a href="#1-2-const的使用" class="headerlink" title="1.2    const的使用"></a>1.2    const的使用</h2><p>​    1.const用来定义常量，赋值知乎不能再赋值，再次赋值会报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//1.定义常量，赋值后不能再赋值，在赋值报错</span></span><br><span class="line">    <span class="keyword">const</span> count = <span class="number">1</span></span><br><span class="line">    <span class="comment">// count = 2</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    2.const不能只声明不赋值，会报错。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//2.只声明不赋值，必须赋值</span></span><br><span class="line">    <span class="comment">// const count;</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>​    3.const常量含义是你不能改变其指向的对象，例如user，都是你可以改变user属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="comment">//3.常量的含义是你不能改变其指向的对象user，但是你可以改变user属性</span></span><br><span class="line">    <span class="keyword">const</span> user = &#123;</span><br><span class="line">        name:<span class="string">"zzz"</span>,</span><br><span class="line">        age:<span class="number">24</span>,</span><br><span class="line">        height:<span class="number">175</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(user)</span><br><span class="line">    user.name = <span class="string">"ttt"</span></span><br><span class="line">    user.age = <span class="number">22</span></span><br><span class="line">    user.height = <span class="number">188</span></span><br><span class="line">    <span class="built_in">console</span>.log(user)</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>const内存地址详解</strong></p>
+<p><img src="/2019/11/08/es6%E7%AC%94%E8%AE%B0/1.2-1.png" alt></p>
+<p>​    对象count一开始只想0x10的地址，直接将count（给count重新赋值，指向一个新的对象）指向地址改为0x20会报错，const是常量，无法更改对象地址。</p>
+<p>​    对象user一开始指向0x10地址，user有<code>Name</code>、<code>Age</code>、<code>Height</code>三个属性，此时修改属性<code>Name=&#39;ttt&#39;</code>，user对象的地址未改变，不会报错。</p>
+<h2 id="1-3-ES6的增强写法"><a href="#1-3-ES6的增强写法" class="headerlink" title="1.3    ES6的增强写法"></a>1.3    ES6的增强写法</h2><h3 id="1-3-1-ES6的对象属性增强型写法"><a href="#1-3-1-ES6的对象属性增强型写法" class="headerlink" title="1.3.1    ES6的对象属性增强型写法"></a>1.3.1    ES6的对象属性增强型写法</h3><p>​    ES6以前定义一个对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">"zzz"</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="number">18</span>;</span><br><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">  name:name,</span><br><span class="line">  age:age</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(user);</span><br></pre></td></tr></table></figure>
+
+<p>​    ES6写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> name = <span class="string">"zzz"</span>;</span><br><span class="line"><span class="keyword">const</span> age = <span class="number">18</span>;</span><br><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">	name,age</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(user);</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-2-ES6对象的函数增强型写法"><a href="#1-3-2-ES6对象的函数增强型写法" class="headerlink" title="1.3.2    ES6对象的函数增强型写法"></a>1.3.2    ES6对象的函数增强型写法</h3><p>​    ES6之前对象内定义函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  run:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">"奔跑"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>  ES6写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  run()&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">"奔跑"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-4-箭头函数"><a href="#1-4-箭头函数" class="headerlink" title="1.4    箭头函数"></a>1.4    箭头函数</h2><h3 id="1-4-1-认识箭头函数"><a href="#1-4-1-认识箭头函数" class="headerlink" title="1.4.1    认识箭头函数"></a>1.4.1    认识箭头函数</h3><blockquote>
+<p>传统定义函数的方式</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> aaa = <span class="function"><span class="keyword">function</span> (<span class="params">param</span>) </span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对象字面量中定义函数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">    bbb (param) &#123;  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ES6中的箭头函数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//const ccc = (参数列表) =&gt; &#123;&#125;</span></span><br><span class="line">  <span class="keyword">const</span> ccc = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-2-箭头函数的参数和返回值"><a href="#1-4-2-箭头函数的参数和返回值" class="headerlink" title="1.4.2    箭头函数的参数和返回值"></a>1.4.2    箭头函数的参数和返回值</h3><h4 id="1-4-2-1-参数问题"><a href="#1-4-2-1-参数问题" class="headerlink" title="1.4.2.1    参数问题"></a>1.4.2.1    参数问题</h4><blockquote>
+<p>1.放入两个参数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> sum = <span class="function">(<span class="params">num1,num2</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> num1 + num2 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.放入一个参数,()可以省略</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> power = <span class="function"><span class="params">num</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> num * num</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-4-2-2-函数内部"><a href="#1-4-2-2-函数内部" class="headerlink" title="1.4.2.2    函数内部"></a>1.4.2.2    函数内部</h4><blockquote>
+<p>1.函数中代码块中有多行代码</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> test = <span class="function"><span class="params">()</span> =&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"hello zzz"</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"hello vue"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>2.函数代码块中只有一行代码，可以省略return</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const mul = (num1,num2) =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   return num1 * num2</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="keyword">const</span> mul = <span class="function">(<span class="params">num1,num2</span>) =&gt;</span> num1* num2</span><br><span class="line"><span class="comment">// const log = () =&gt; &#123;</span></span><br><span class="line"><span class="comment">//   console.log("log")</span></span><br><span class="line"><span class="comment">// &#125;</span></span><br><span class="line"><span class="keyword">const</span> log = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">"log"</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-3-箭头函数的this使用"><a href="#1-4-3-箭头函数的this使用" class="headerlink" title="1.4.3    箭头函数的this使用"></a>1.4.3    箭头函数的this使用</h3><blockquote>
+<p>什么时候使用箭头函数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">&#125; , <span class="number">1000</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="keyword">this</span>)<span class="comment">//这里this找的是window的this</span></span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>结论：箭头函数没有this，这里this引用的是最近作用域（aaa函数里的this）的this。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  aaa()&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>)<span class="comment">//window</span></span><br><span class="line">     &#125;);</span><br><span class="line">     setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="keyword">this</span>)<span class="comment">//obj</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.aaa()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>​    上述中第一个是window对象的this，第二个箭头函数的this是obj的。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  aaa() &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">//window</span></span><br><span class="line">      &#125;)</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">//window</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">//window</span></span><br><span class="line">      &#125;)</span><br><span class="line">      setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>) <span class="comment">//obj</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">obj.aaa()</span><br></pre></td></tr></table></figure>
+
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><h3 id="1-5-1-filter过滤函数"><a href="#1-5-1-filter过滤函数" class="headerlink" title="1.5.1    filter过滤函数"></a>1.5.1    filter过滤函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> nums = [<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">77</span>,<span class="number">55</span>,<span class="number">100</span>,<span class="number">200</span>]</span><br><span class="line"><span class="comment">//要求获取nums中大于50的数</span></span><br><span class="line"><span class="comment">//回调函数会遍历nums中每一个数，传入回调函数，在回调函数中写判断逻辑，返回true则会被数组接收，false会被拒绝</span></span><br><span class="line"><span class="keyword">let</span> newNums = nums.filter(<span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(num &gt; <span class="number">50</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;)</span><br><span class="line"> <span class="comment">//可以使用箭头函数简写</span></span><br><span class="line"><span class="comment">//  let newNums = nums.filter(num =&gt; num &gt;50)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-2-map高阶函数"><a href="#1-5-2-map高阶函数" class="headerlink" title="1.5.2    map高阶函数"></a>1.5.2    map高阶函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 要求将已经过滤的新数组每项乘以2</span></span><br><span class="line"><span class="comment">//map函数同样会遍历数组每一项，传入回调函数为参数，num是map遍历的每一项，回调函数function返回值会被添加到新数组中</span></span><br><span class="line"><span class="keyword">let</span> newNums2 = newNums.map(<span class="function"><span class="keyword">function</span> (<span class="params">num</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> num * <span class="number">2</span></span><br><span class="line"> &#125;)</span><br><span class="line"> <span class="comment">//简写</span></span><br><span class="line"><span class="comment">//  let newNums2 = newNums.map(num =&gt; num * 2)</span></span><br><span class="line"><span class="built_in">console</span>.log(newNums2);</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-3-reduce高阶函数"><a href="#1-5-3-reduce高阶函数" class="headerlink" title="1.5.3    reduce高阶函数"></a>1.5.3    reduce高阶函数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 3.reduce高阶函数</span></span><br><span class="line"><span class="comment">//要求将newNums2的数组所有数累加</span></span><br><span class="line"><span class="comment">//reduce函数同样会遍历数组每一项，传入回调函数和‘0’为参数，0表示回调函数中preValue初始值为0，回调函数中参数preValue是每一次回调函数function返回的值，currentValue是当前值</span></span><br><span class="line"><span class="comment">//例如数组为[154, 110, 200, 400],则回调函数第一次返回值为0+154=154，第二次preValue为154，返回值为154+110=264，以此类推直到遍历完成</span></span><br><span class="line"><span class="keyword">let</span> newNum = newNums2.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">preValue,currentValue</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> preValue + currentValue</span><br><span class="line"> &#125;,<span class="number">0</span>)</span><br><span class="line"><span class="comment">//简写</span></span><br><span class="line"><span class="comment">// let newNum = newNums2.reduce((preValue,currentValue) =&gt; preValue + currentValue)</span></span><br><span class="line"><span class="built_in">console</span>.log(newNum);</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-5-4综合使用"><a href="#1-5-4综合使用" class="headerlink" title="1.5.4综合使用"></a>1.5.4综合使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//三个需求综合</span></span><br><span class="line"><span class="keyword">let</span> n = nums.filter(<span class="function"><span class="params">num</span> =&gt;</span> num &gt; <span class="number">50</span>).map(<span class="function"><span class="params">num</span> =&gt;</span> num * <span class="number">2</span>).reduce(<span class="function">(<span class="params">preValue,currentValue</span>) =&gt;</span> preValue + currentValue)</span><br><span class="line"><span class="built_in">console</span>.log(n);</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">es6</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/08/es6%E7%AC%94%E8%AE%B0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-vue-element-admin登陆流程注意事项" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -846,80 +1025,6 @@
 
 
   
-    <article id="post-no-session问题原因和解决方案" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/03/no-session%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">no-session问题原因和解决方案</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/03/no-session%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="archive-article-date">
-  	<time datetime="2019-06-03T09:39:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="下面是图解"><a href="#下面是图解" class="headerlink" title="下面是图解"></a>下面是图解</h2><p><img src="/2019/06/03/no-session%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/no-session.jpg" alt><br>解决no-session问题过滤器配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 解决no-session过滤器 --&gt;</span><br><span class="line"> &lt;filter&gt;</span><br><span class="line">     &lt;filter-name&gt;noSession&lt;/filter-name&gt;</span><br><span class="line">     &lt;filter-class&gt;org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter&lt;/filter-class&gt;</span><br><span class="line"> &lt;/filter&gt;</span><br><span class="line"> &lt;filter-mapping&gt;</span><br><span class="line">     &lt;filter-name&gt;noSession&lt;/filter-name&gt;</span><br><span class="line">     &lt;url-pattern&gt;/*&lt;/url-pattern&gt;</span><br><span class="line"> &lt;/filter-mapping&gt;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/03/no-session%E9%97%AE%E9%A2%98%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1017,7 +1122,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1029,6 +1134,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
@@ -1037,19 +1146,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">thymleaf</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">rails</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color4">thymleaf</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">springsecurity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>
