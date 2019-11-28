@@ -8,17 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>vue组件化开发 | dogao&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="（十一）组件化开发11.1    组件化的基本使用​    简单的组件示例 1234567891011121314151617181920212223242526272829&amp;lt;div id=&quot;app&quot;&amp;gt;  &amp;lt;!-- 3.使用组件 --&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;lt;&#x2F;my-cpn&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;lt;&#x2F;my-cpn&amp;gt;  &amp;lt;my">
+  <meta name="description" content="11.1    组件化的基本使用​    简单的组件示例 1234567891011121314151617181920212223242526272829&amp;lt;div id=&quot;app&quot;&amp;gt;  &amp;lt;!-- 3.使用组件 --&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;lt;&#x2F;my-cpn&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;lt;&#x2F;my-cpn&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue组件化开发">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;13&#x2F;vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91&#x2F;index.html">
 <meta property="og:site_name" content="dogao&#39;s blog">
-<meta property="og:description" content="（十一）组件化开发11.1    组件化的基本使用​    简单的组件示例 1234567891011121314151617181920212223242526272829&amp;lt;div id=&quot;app&quot;&amp;gt;  &amp;lt;!-- 3.使用组件 --&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;lt;&#x2F;my-cpn&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;lt;&#x2F;my-cpn&amp;gt;  &amp;lt;my">
+<meta property="og:description" content="11.1    组件化的基本使用​    简单的组件示例 1234567891011121314151617181920212223242526272829&amp;lt;div id=&quot;app&quot;&amp;gt;  &amp;lt;!-- 3.使用组件 --&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;lt;&#x2F;my-cpn&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;lt;&#x2F;my-cpn&amp;gt;  &amp;lt;my-cpn&amp;gt;&amp;">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;13&#x2F;vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91&#x2F;11.1-1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;13&#x2F;vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91&#x2F;11.6-1.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;13&#x2F;vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91&#x2F;11.6-2.gif">
-<meta property="og:updated_time" content="2019-11-13T10:42:15.444Z">
+<meta property="og:updated_time" content="2019-11-28T15:19:55.853Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;13&#x2F;vue%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91&#x2F;11.1-1.png">
   
@@ -174,7 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="（十一）组件化开发"><a href="#（十一）组件化开发" class="headerlink" title="（十一）组件化开发"></a>（十一）组件化开发</h1><h2 id="11-1-组件化的基本使用"><a href="#11-1-组件化的基本使用" class="headerlink" title="11.1    组件化的基本使用"></a>11.1    组件化的基本使用</h2><p>​    简单的组件示例</p>
+        <h2 id="11-1-组件化的基本使用"><a href="#11-1-组件化的基本使用" class="headerlink" title="11.1    组件化的基本使用"></a>11.1    组件化的基本使用</h2><p>​    简单的组件示例</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 3.使用组件 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">my-cpn</span>&gt;</span><span class="tag">&lt;/<span class="name">my-cpn</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">my-cpn</span>&gt;</span><span class="tag">&lt;/<span class="name">my-cpn</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">my-cpn</span>&gt;</span><span class="tag">&lt;/<span class="name">my-cpn</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">cpnc</span>&gt;</span><span class="tag">&lt;/<span class="name">cpnc</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">  <span class="comment">// 1.创建组件构造器对象</span></span></span><br><span class="line"><span class="actionscript">  <span class="keyword">const</span> cpnc = Vue.extend(&#123;</span></span><br><span class="line">    template:`</span><br><span class="line"><span class="handlebars"><span class="xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容1...<span class="tag">&lt;<span class="name">p</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>内容2...<span class="tag">&lt;<span class="name">p</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span>`</span></span></span><br><span class="line">  &#125;)</span><br><span class="line"><span class="actionscript">  <span class="comment">// 2.注册组件</span></span></span><br><span class="line"><span class="actionscript">  Vue.component(<span class="string">'my-cpn'</span>, cpnc)</span></span><br><span class="line"><span class="actionscript">  <span class="keyword">const</span> app = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="actionscript">    el:<span class="string">"#app"</span>,</span></span><br><span class="line">    data:&#123;</span><br><span class="line">    &#125;,</span><br><span class="line"><span class="actionscript">    components:&#123;<span class="comment">//局部组件创建</span></span></span><br><span class="line">      cpnc:cpnc</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p>​     组件是可复用的 Vue 实例，且带有一个名字：在这个例子中是 <code>my-cpn</code>。我们可以在一个通过 <code>new Vue</code> 创建的 Vue 根实例中，把这个组件作为自定义元素来使用： <code>&lt;my-cpn&gt;&lt;/my-cpn&gt;</code>。</p>
@@ -339,6 +340,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
