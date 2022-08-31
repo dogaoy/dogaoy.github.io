@@ -1,0 +1,16 @@
+{
+  "id": "3595228",
+  "name": "blog_icon",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-dogao",
+  "description": "博客icon",
+  "glyphs": [
+    {
+      "icon_id": "11372654",
+      "name": "电影",
+      "font_class": "dianying",
+      "unicode": "e8ae",
+      "unicode_decimal": 59566
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "26267541",
+      "name": "douban",
+      "font_class": "douban",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    }
+  ]
+}

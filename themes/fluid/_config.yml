@@ -235,8 +235,12 @@ custom_js:
 
 # 指定自定义 .css 文件路径，用法和 custom_js 相同
 # The usage is the same as custom_js
-custom_css: /css/cloud-music/iconfont.css
-
+custom_css: 
+  - /css/cloud-music/iconfont.css
+  - /css/bilibili/iconfont.css
+  - /css/douban/iconfont.css
+  - /css/movies/iconfont.css
+  - /css/fluid-extension.css  #添加自己的样式
 # 网页访问统计
 # Analysis of website visitors
 web_analytics:  # 网页访问统计
@@ -350,6 +354,10 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
+    - { key: "追番", link: "/bangumis/", icon: "iconfont icon-bilibili" }
+    - { key: "影单/剧单", link: "/bilibili-cinema/", icon: "iconfont icon-dogaodianying" }
+    #- { key: "豆瓣", link: "/movies/", icon: "iconfont icon-douban" }
+
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件

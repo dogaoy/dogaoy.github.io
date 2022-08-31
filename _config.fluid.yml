@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://dogaoy.github.io/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -103,5 +103,33 @@ theme: fluid
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: 'git'
-  repo: https://gitee.com/dogao/dogao.git
+  repo: https://github.com/dogaoy/dogaoy.github.io.git
   branch: master
+bangumi: # 追番设置
+  enable: true
+  source: bili
+  path:
+  vmid: 4826024
+  title: '追番列表'
+  quote: '二次元yyds捏✌️'
+  show: 1
+  showMyComment: false
+  pagination: false
+  metaColor:
+  color:
+  webp:
+  progress:
+  extraOrder:
+cinema: # 追剧设置
+  enable: true
+  source: bili
+  path: /bilibili-cinema/index.html
+  vmid: 4826024
+  title: '电影/电视剧'
+  quote: '一部分来自bilibili，大部分会更新成豆瓣的数据'
+  show: 1
+  metaColor:
+  color:
+  webp:
+  progress:
+  extraOrder:
