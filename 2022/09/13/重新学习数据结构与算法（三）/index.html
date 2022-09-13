@@ -1,0 +1,821 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="dogao">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="线性表链表前面我们介绍了如何使用数组实现线性表，我们接着来看第二种方式，我们可以使用链表来实现，那么什么是链表呢？  链表不同于顺序表，顺序表底层采用数组作为存储容器，需要分配一块连续且完整的内存空间进行使用，而链表则不需要，它通过一个指针来连接各个分散的结点，形成了一个链状的结构，每个结点存放一个元素，以及一个指向下一个结点的指针，通过这样一个一个相连，最后形成了链表。它不需要申请连续的空间，只">
+<meta property="og:type" content="article">
+<meta property="og:title" content="重新学习数据结构与算法（三）">
+<meta property="og:url" content="https://dogaoy.github.io/2022/09/13/%E9%87%8D%E6%96%B0%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E4%B8%89%EF%BC%89/index.html">
+<meta property="og:site_name" content="狂躁大野狗">
+<meta property="og:description" content="线性表链表前面我们介绍了如何使用数组实现线性表，我们接着来看第二种方式，我们可以使用链表来实现，那么什么是链表呢？  链表不同于顺序表，顺序表底层采用数组作为存储容器，需要分配一块连续且完整的内存空间进行使用，而链表则不需要，它通过一个指针来连接各个分散的结点，形成了一个链状的结构，每个结点存放一个元素，以及一个指向下一个结点的指针，通过这样一个一个相连，最后形成了链表。它不需要申请连续的空间，只">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao1.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao2.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao3.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao4.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao5.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao6.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao7.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao8.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao9.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao10.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao11.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao12.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao13.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao14.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao15.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao16.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao17.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao18.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao19.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao20.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao20.png">
+<meta property="article:published_time" content="2022-09-13T06:41:24.000Z">
+<meta property="article:modified_time" content="2022-09-13T07:57:07.644Z">
+<meta property="article:author" content="dogao">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dogaoy.github.io/img/article/data_structure/lianbiao/lianbiao1.png">
+  
+  
+  
+  <title>重新学习数据结构与算法（三） - 狂躁大野狗</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/cloud-music/iconfont.css">
+<link rel="stylesheet" href="/css/bilibili/iconfont.css">
+<link rel="stylesheet" href="/css/douban/iconfont.css">
+<link rel="stylesheet" href="/css/movies/iconfont.css">
+<link rel="stylesheet" href="/css/fluid-extension.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"dogaoy.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>狂躁大野狗</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/bangumis/">
+                <i class="iconfont icon-bilibili"></i>
+                追番
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/bilibili-cinema/">
+                <i class="iconfont icon-dogaodianying"></i>
+                影单/剧单
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.gif') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="重新学习数据结构与算法（三）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-13 14:41" pubdate>
+          2022年9月13日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          9.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          79 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">重新学习数据结构与算法（三）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>前面我们介绍了如何使用数组实现线性表，我们接着来看第二种方式，我们可以使用链表来实现，那么什么是链表呢？</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao1.png" srcset="/img/loading.gif" lazyload></p>
+<p>链表不同于顺序表，顺序表底层采用数组作为存储容器，需要分配一块连续且完整的内存空间进行使用，而链表则不需要，它通过一个指针来连接各个分散的结点，形成了一个链状的结构，每个结点存放一个元素，以及一个指向下一个结点的指针，通过这样一个一个相连，最后形成了链表。它不需要申请连续的空间，只需要按照顺序连接即可，虽然物理上可能不相邻，但是在逻辑上依然是每个元素相邻存放的，这样的结构叫做链表（单链表）。</p>
+<p>链表分为带头结点的链表和不带头结点的链表，戴头结点的链表就是会有一个头结点指向后续的整个链表，但是头结点不存放数据：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao2.png" srcset="/img/loading.gif" lazyload></p>
+<p>而不带头结点的链表就像上面那样，第一个节点就是存放数据的结点，一般设计链表都会采用带头结点的结构，因为操作更加方便。</p>
+<p>那么我们就来尝试编写一个带头结点的链表：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span> E;   <span class="hljs-comment">//这个还是老样子</span><br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> &#123;</span><br>    E element;   <span class="hljs-comment">//保存当前元素</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> * <span class="hljs-title">next</span>;</span>   <span class="hljs-comment">//指向下一个结点的指针</span><br>&#125;;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span> * <span class="hljs-title">Node</span>;</span>   <span class="hljs-comment">//这里我们直接为结点指针起别名，可以直接作为表实现</span><br></code></pre></td></tr></table></figure>
+
+
+<p>接着我们来设计一下链表的插入和删除，我们前面实现了顺序表的插入，那么链表的插入该怎么做呢？</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao3.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们可以先修改新插入的结点的后继结点（也就是下一个结点）指向，指向原本在这个位置的结点：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao4.png" srcset="/img/loading.gif" lazyload></p>
+<p>接着我们可以将前驱结点（也就是上一个结点）的后继结点指向修改为我们新插入的结点：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao5.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样，我们就成功插入了一个新的结点，现在新插入的结点到达了原本的第二个位置上：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao6.png" srcset="/img/loading.gif" lazyload></p>
+<p>按照这个思路，我们来实现一下，首先设计一下函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">insertList</span><span class="hljs-params">(Node head, E element, <span class="hljs-type">int</span> index)</span>&#123;<br>		<span class="hljs-comment">//head是头结点，element为待插入元素，index是待插入下标</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接着我们需要先找到待插入位置的前驱结点：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">insertList</span><span class="hljs-params">(Node head, E element, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;   <span class="hljs-comment">//如果插入的位置小于1，那肯定是非法的</span><br>    <span class="hljs-keyword">while</span> (--index) &#123;   <span class="hljs-comment">//通过--index的方式不断向后寻找前驱结点</span><br>        head = head-&gt;next;   <span class="hljs-comment">//正常情况下继续向后找</span><br>      	<span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;  <br>      	<span class="hljs-comment">//如果在寻找的过程中发型已经没有后续结点了，那么说明index超出可插入的范围了，也是非法的，直接润</span><br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在循环操作完成后，如果没问题那么会找到对应插入位置的前驱结点，我们只需要按照上面分析的操作来编写代码即可：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">insertList</span><span class="hljs-params">(Node head, E element, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (--index) &#123;<br>        head = head-&gt;next;<br>      	<span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    Node node = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span> (<span class="hljs-keyword">struct</span> ListNode));<br>    <span class="hljs-keyword">if</span>(node == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;   <span class="hljs-comment">//创建一个新的结点，如果内存空间申请失败返回0</span><br>    node-&gt;element = element;   <span class="hljs-comment">//将元素保存到新创建的结点中</span><br>    node-&gt;next = head-&gt;next;   <span class="hljs-comment">//先让新插入的节点指向原本位置上的这个结点</span><br>    head-&gt;next = node;   <span class="hljs-comment">//接着将前驱结点指向新的这个结点</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样，我们就编写好了链表的插入操作了，我们可以来测试一下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><br><span class="hljs-type">void</span> <span class="hljs-title function_">printList</span><span class="hljs-params">(Node head)</span>&#123;<br>    <span class="hljs-keyword">while</span> (head-&gt;next) &#123;<br>        head = head-&gt;next;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, head-&gt;element);   <span class="hljs-comment">//因为头结点不存放数据，所以从第二个开始打印</span><br>    &#125;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> <span class="hljs-title">head</span>;</span><br>    initList(&amp;head);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">3</span>; ++i) &#123;  <span class="hljs-comment">// up这边笔记也错了 应该这样写</span><br>        insertList(&amp;head, i * <span class="hljs-number">100</span>, i);   <span class="hljs-comment">//依次插入3个元素</span><br>    &#125;<br><br>    printList(&amp;head);<br><br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>成功得到结果：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao7.png" srcset="/img/loading.gif" lazyload></p>
+<p>那么链表的插入我们研究完了，接着就是结点的删除了，那么我们如何实现删除操作呢？实际上也会更简单一些，我们可以直接将待删除节点的前驱结点指向修改为待删除节点的下一个：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao8.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao9.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样，在逻辑上来说，待删除结点其实已经不在链表中了，所以我们只需要释放掉待删除结点占用的内存空间就行了：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao10.png" srcset="/img/loading.gif" lazyload></p>
+<p>那么我们就按照这个思路来编写一下程序，首先还是设计函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">deleteList</span><span class="hljs-params">(Node head, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-comment">//head就是头结点，index依然是待删除的结点位序</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>首先我们还是需要找到待删除结点的前驱结点：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">deleteList</span><span class="hljs-params">(Node head, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;   <span class="hljs-comment">//大体和上面是一样的</span><br>    <span class="hljs-keyword">while</span> (--index) &#123;<br>        head = head-&gt;next;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(head-&gt;next == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;  <span class="hljs-comment">//注意删除的范围，如果前驱结点的下一个已经是NULL了，那么也说明超过了范围</span><br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>最后就是按照我们上面说的删除结点了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">deleteList</span><span class="hljs-params">(Node head, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (index--) &#123;<br>        head = head-&gt;next;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(head-&gt;next == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    Node tmp = head-&gt;next;   <span class="hljs-comment">//先拿到待删除结点</span><br>    head-&gt;next = head-&gt;next-&gt;next;   <span class="hljs-comment">//直接让前驱结点指向下一个的下一个结点</span><br>    <span class="hljs-built_in">free</span>(tmp);   <span class="hljs-comment">//最后使用free函数释放掉待删除结点的内存</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样，我们就成功完成了链表的删除操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> <span class="hljs-title">head</span>;</span><br>    initList(&amp;head);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">3</span>; ++i) &#123;<br>        insertList(&amp;head, i * <span class="hljs-number">100</span>, i);<br>    &#125;<br>    deleteList(&amp;head, <span class="hljs-number">1</span>);   <span class="hljs-comment">//up笔记又有问题 基本上就是位置判断，0和1之间的判定</span><br>    printList(&amp;head);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>最后得到结果也是正确的：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao11.png" srcset="/img/loading.gif" lazyload></p>
+<p>接着就是链表的一些其他操作了，这里我们也来实现一下，首先是获取对应位置上的元素：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c">E * <span class="hljs-title function_">getList</span><span class="hljs-params">(Node head, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;   <span class="hljs-comment">//如果小于0那肯定不合法，返回NULL</span><br>    <span class="hljs-keyword">do</span> &#123;<br>        head = head-&gt;next;  <span class="hljs-comment">//因为不算头结点，所以使用do-while语句</span><br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;  <span class="hljs-comment">//如果已经超出长度那肯定也不行</span><br>    &#125; <span class="hljs-keyword">while</span> (--index);  <span class="hljs-comment">//到达index就结束</span><br>    <span class="hljs-keyword">return</span> &amp;head-&gt;element;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接着是查找对应元素的位置：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">findList</span><span class="hljs-params">(Node head, E element)</span>&#123;<br>    head = head-&gt;next;    <span class="hljs-comment">//先走到第一个结点</span><br>    <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;   <span class="hljs-comment">//计数器</span><br>    <span class="hljs-keyword">while</span> (head) &#123;<br>        <span class="hljs-keyword">if</span>(head-&gt;element == element) <span class="hljs-keyword">return</span> i;   <span class="hljs-comment">//如果找到，那么就返回i</span><br>        head = head-&gt;next;   <span class="hljs-comment">//没找到就继续向后看</span><br>        i++;   <span class="hljs-comment">//i记住要自增</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;   <span class="hljs-comment">//都已经走到链表尾部了，那么就确实没找到了，返回-1</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接着是求链表的长度，这个太简单了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">sizeList</span><span class="hljs-params">(Node head)</span>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">0</span>;  <span class="hljs-comment">//从0开始</span><br>    <span class="hljs-keyword">while</span> (head-&gt;next) &#123;   <span class="hljs-comment">//如果下一个为NULL那就停止</span><br>        head = head-&gt;next;<br>        i++;   <span class="hljs-comment">//每向后找一个就+1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> i;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这样，我们的链表就编写完成了，整个代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdlib.h&gt;</span></span><br><br><span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span> E;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> &#123;</span><br>    E element;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> * <span class="hljs-title">next</span>;</span><br>&#125;;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> * <span class="hljs-title">Node</span>;</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">initList</span><span class="hljs-params">(Node node)</span>&#123;<br>    node-&gt;next = <span class="hljs-literal">NULL</span>;<br>&#125;<br><br><span class="hljs-type">_Bool</span> <span class="hljs-title function_">insertList</span><span class="hljs-params">(Node head, E element, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span> (--index) &#123;<br>        head = head-&gt;next;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br><br>    Node node = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> ListNode));<br>    <span class="hljs-keyword">if</span>(node == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    node-&gt;element = element;<br>    node-&gt;next = head-&gt;next;<br>    head-&gt;next = node;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-type">_Bool</span> <span class="hljs-title function_">deleteList</span><span class="hljs-params">(Node head, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;   <span class="hljs-comment">//大体和上面是一样的</span><br>    <span class="hljs-keyword">while</span> (--index) &#123;<br>        head = head-&gt;next;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(head-&gt;next == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><br>    Node tmp = head-&gt;next;<br>    head-&gt;next = head-&gt;next-&gt;next;<br>    <span class="hljs-built_in">free</span>(tmp);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br>E * <span class="hljs-title function_">getList</span><span class="hljs-params">(Node head, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">do</span> &#123;<br>        head = head-&gt;next;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125; <span class="hljs-keyword">while</span> (--index);<br>    <span class="hljs-keyword">return</span> &amp;head-&gt;element;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">findList</span><span class="hljs-params">(Node head, E element)</span>&#123;<br>    head = head-&gt;next;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (head) &#123;<br>        <span class="hljs-keyword">if</span>(head-&gt;element == element) <span class="hljs-keyword">return</span> i;<br>        head = head-&gt;next;<br>        i++;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">sizeList</span><span class="hljs-params">(Node head)</span>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">-1</span>;<br>    <span class="hljs-keyword">while</span> (head) &#123;<br>        head = head-&gt;next;<br>        i++;<br>    &#125;<br>    <span class="hljs-keyword">return</span> i;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>问题：</strong> 请问链式实现的线性表，插入、删除、获取元素操作的时间复杂度为？</p>
+<ul>
+<li><strong>插入：</strong> 因为要寻找对应位置的前驱结点，所以平均时间复杂度为$O(n)$，但是不需要做任何的移动操作，效率肯定是比顺序表要高的。</li>
+<li><strong>删除：</strong> 同上，所以平均时间复杂度为$O(n)$</li>
+<li><strong>获取元素：</strong> 由于必须要挨个向后寻找，才能找到对应的结点，所以时间复杂度为$O(n)$，不支持随机访问，只能顺序访问，比顺序表慢。</li>
+</ul>
+<p><strong>问题：</strong> 什么情况下使用顺序表，什么情况下使用链表呢？</p>
+<ul>
+<li><p>通过分析顺序表和链表的特性我们不难发现，链表在随机访问元素时，需要通过遍历来完成，而顺序表则利用数组的特性直接访问得到，所以，当我们读取数据多于插入或是删除数据的情况下时，使用顺序表会更好。</p>
+</li>
+<li><p>而顺序表在插入元素时就显得有些鸡肋了，因为需要移动后续元素，整个移动操作会浪费时间，而链表则不需要，只需要修改结点 指向即可完成插入，所以在频繁出现插入或删除的情况下，使用链表会更好。</p>
+</li>
+</ul>
+<p><strong>链表练习题：</strong> </p>
+<ol>
+<li><p>在一个长度为n (n&gt;1)的单链表上，设有头和尾两个指针，执行（     ）操作与链表的长度有关？<br>A．删除单链表中的第一个元素<br>B．删除单链表中的最后一个元素<br>C．在单链表第一个元素前插入一个新元素<br>D．在单链表最后一个元素后插入一个新元素<br>注意题干，现在有指向链表头尾的两个指针，那么A、C肯定是可以直接通过头结点找到的，无论链表长度如何都不影响，D也可以直接通过尾指针进行拼接，只有B需要尾指针的前驱结点，此时只能从头开始遍历得到，所以选择B </p>
+</li>
+<li><p>在一个单链表HL中（HL为头结点指针），若要向表头插入一个由指针p指向的结点，则执行？<br>A． HL＝p; p-&gt;next＝HL;<br>B． p-&gt;next＝HL; HL＝p;<br>C． p-&gt;next＝HL; p＝HL;<br>D． p-&gt;next＝HL-&gt;next; HL-&gt;next＝p;<br>既然要在表头插入一个数据，也就是说要在第一个位置插入，那么根据我们之前讲解的链表的插入，只需要将头结点指向新的结点，再让新的结点指向原本的第一个结点即可，所以选择D </p>
+</li>
+<li><p>链表不具备的特点是？<br>A．可随机访问任一结点             B．插入删除不需要移动元素<br>C．不必事先估计存储空间         D．所需空间与其长度成正比<br>我们前面说了，链表由于是链式存储结构，无法直接访问到对应下标的元素，所以我们只能通过遍历去找到对应位置的元素，故选择A</p>
+</li>
+</ol>
+<h3 id="双向链表和循环链表"><a href="#双向链表和循环链表" class="headerlink" title="双向链表和循环链表"></a>双向链表和循环链表</h3><p>前面我们介绍了单链表，通过这样的链式存储，我们不用再像顺序表那样一次性申请一段连续的空间，而是只需要单独为结点申请内存空间，同时在插入和删除的速度上也比顺序表轻松。不过有一个问题就是，如果我们想要操作某一个结点，比如删除或是插入，那么由于单链表的性质，我们只能先去找到它的前驱结点，才能进行。</p>
+<p>为了解决这种查找前驱结点非常麻烦的问题，我们可以让结点不仅保存指向后续结点的指针，同时也保存指向前驱结点的指针：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao12.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样我们无论在哪个结点，都能够快速找到对应的前驱结点，就很方便了，这样的链表我们成为双向链表（双链表）</p>
+<p>这里我们也来尝试实现一下，首先定义好结构体：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span> E;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> &#123;</span><br>    E element;   <span class="hljs-comment">//保存当前元素</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> * <span class="hljs-title">next</span>;</span>   <span class="hljs-comment">//指向下一个结点的指针</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> * <span class="hljs-title">prev</span>;</span>   <span class="hljs-comment">//指向上一个结点的指针</span><br>&#125;;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> * <span class="hljs-title">Node</span>;</span><br></code></pre></td></tr></table></figure>
+
+<p>接着是初始化方法，在初始化时需要将前驱和后继都设置为NULL：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">initNode</span><span class="hljs-params">(Node node)</span>&#123;<br>    node-&gt;next = node-&gt;prev = <span class="hljs-literal">NULL</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> <span class="hljs-title">head</span>;</span><br>    initNode(&amp;head);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接着是双向链表的插入操作，这就比单链表要麻烦一些了，我们先来分析一下：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao13.png" srcset="/img/loading.gif" lazyload></p>
+<p>首先我们需要考虑后继结点，当新的结点插入之后，新的结点的后继结点就是原本在此位置上的结点，所以我们可以先将待插入结点的后继指针指向此位置上的结点：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao14.png" srcset="/img/loading.gif" lazyload></p>
+<p>由于是双向链表，所以我们需要将原本在此位置上的结点的前驱指针指向新的结点：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao15.png" srcset="/img/loading.gif" lazyload></p>
+<p>接着我们来处理一下前驱结点，首先将前驱结点的后继指针修改为新的结点：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao16.png" srcset="/img/loading.gif" lazyload></p>
+<p>最后我们将新的结点的前驱指针指向前驱结点即可：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao17.png" srcset="/img/loading.gif" lazyload></p>
+<p>这样，我们就完成了双向链表中结点的插入操作，按照这个思路，我们来设计一下函数吧：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">insertList</span><span class="hljs-params">(Node head, E element, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;   <span class="hljs-comment">//跟单链表一样，还是先找到对应的位置</span><br>    <span class="hljs-keyword">while</span> (--index) &#123;<br>        head = head-&gt;next;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    Node node = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span> (<span class="hljs-keyword">struct</span> ListNode));  <span class="hljs-comment">//创建新的结点</span><br>    <span class="hljs-keyword">if</span>(node == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>  	node-&gt;element = element;<br><br>    <span class="hljs-keyword">if</span>(head-&gt;next) &#123;   <span class="hljs-comment">//首先处理后继结点，现在有两种情况，一种是后继结点不存在的情况，还有一种是后继结点存在的情况</span><br>        head-&gt;next-&gt;prev = node;   <span class="hljs-comment">//如果存在则修改对应的两个指针</span><br>        node-&gt;next = head-&gt;next;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        node-&gt;next = <span class="hljs-literal">NULL</span>;   <span class="hljs-comment">//不存在直接将新结点的后继指针置为NULL</span><br>    &#125;<br>    <br>    head-&gt;next = node;   <span class="hljs-comment">//接着是前驱结点，直接操作就行</span><br>    node-&gt;prev = head;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样，我们就编写好了双向链表的插入操作，来测试一下吧：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">ListNode</span> <span class="hljs-title">head</span>;</span><br>    initNode(&amp;head);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">5</span>; ++i)  <span class="hljs-comment">//插5个元素吧</span><br>        insertList(&amp;head, i * <span class="hljs-number">100</span>, i);<br><br>    Node node = &amp;head;   <span class="hljs-comment">//先来正向遍历一次</span><br>    <span class="hljs-keyword">do</span> &#123;<br>        node = node-&gt;next;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d -&gt; &quot;</span>, node-&gt;element);<br>    &#125; <span class="hljs-keyword">while</span> (node-&gt;next != <span class="hljs-literal">NULL</span>);<br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);   <span class="hljs-comment">//再来反向遍历一次</span><br>    <span class="hljs-keyword">do</span> &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d -&gt; &quot;</span>, node-&gt;element);<br>        node = node-&gt;prev;<br>    &#125; <span class="hljs-keyword">while</span> (node-&gt;prev != <span class="hljs-literal">NULL</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>可以看到结果没有问题：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao18.png" srcset="/img/loading.gif" lazyload></p>
+<p>无论是正向遍历还是反向遍历，都可以正常完成，相比单链表的灵活度肯定是更大的，我们接着来看删除操作，其实删除操作也是差不多的方式：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao19.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们只需将前驱结点和后继结点的指向修改即可：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao20.png" srcset="/img/loading.gif" lazyload></p>
+<p>现在我们就来编码吧：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">deleteList</span><span class="hljs-params">(Node head, <span class="hljs-type">int</span> index)</span>&#123;<br>    <span class="hljs-keyword">if</span>(index &lt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;   <span class="hljs-comment">//跟单链表一样，还是先找到对应的位置</span><br>    <span class="hljs-keyword">while</span> (--index) &#123;<br>        head = head-&gt;next;<br>        <span class="hljs-keyword">if</span>(head == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(head-&gt;next == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><br>    Node tmp = head-&gt;next;  <span class="hljs-comment">//先拿到待删除结点</span><br>    <span class="hljs-keyword">if</span>(head-&gt;next-&gt;next) &#123;   <span class="hljs-comment">//这里有两种情况待删除结点存在后继结点或是不存在</span><br>        head-&gt;next-&gt;next-&gt;prev = head;<br>        head-&gt;next = head-&gt;next-&gt;next;   <span class="hljs-comment">//按照上面分析的来</span><br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        head-&gt;next = <span class="hljs-literal">NULL</span>;   <span class="hljs-comment">//相当于删的是最后一个结点，所以直接后继为NULL就完事</span><br>    &#125;<br>    <span class="hljs-built_in">free</span>(tmp);   <span class="hljs-comment">//最后释放已删除结点的内存</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样，我们就实现了双向链表的插入和删除操作，其他操作这里就不演示了。</p>
+<p>接着我们再来简单认识一下另一种类型的链表，循环链表，这种链表实际上和前面我们讲的链表是一样的，但是它的最后一个结点，是与头结点相连的，双向链表和单向链表都可以做成这样的环形结构，我们这里以单链表为例：</p>
+<p><img src="/img/article/data_structure/lianbiao/lianbiao20.png" srcset="/img/loading.gif" lazyload></p>
+<p>这种类型的链表实际上与普通链表的唯一区别就在于最后是否连接到头结点，因此循环链表支持从任意一个结点出发都可以到达任何的结点，而普通的链表则只能从头结点出发才能到达任意结点，同样也是为了更灵活而设计的。</p>
+<p><strong>链表练习题：</strong></p>
+<ol>
+<li><p>与单链表相比，双链表的优点之一是？</p>
+<p> A. 插入、删除操作更简单</p>
+<p> B．可以进行随机访问</p>
+<p> C．可以省略表头指针或表尾指针</p>
+<p> D．顺序访问相邻结点更灵活</p>
+</li>
+</ol>
+<p>首先插入删除操作并没有更简单，反而更复杂了，随机访问肯定也是不行的，省略表头表尾指针实际上单链表也可以，所以直接冲D就完事了 </p>
+<ol start="2">
+<li><p>非空的循环单链表head的尾结点（由p所指向）满足？</p>
+<p>A．p-&gt;next &#x3D;&#x3D; NULL</p>
+<p>B．p &#x3D;&#x3D; NULL</p>
+<p>C．p-&gt;next &#x3D;&#x3D;head         </p>
+<p>D．p &#x3D;&#x3D; head</p>
+<p>前面我们说了，循环链表实际上唯一区别就是尾部的下一个结点会指向头部，所以这里选择C </p>
+</li>
+<li><p>若某表最常用的操作是在最后一个结点之后插入一个结点或删除最后一个结点，则采用什么存储方式最节省运算时间？</p>
+<p>A．单链表    B．给出表头指针的单循环链表    C．双链表      D．带头结点的双循环链表</p>
+<p>题干说明了常用的是在尾结点插入或删除尾结点，那么此时不仅需要快速找到最后一个结点，也需要快速找到最后一个结点的前驱结点，所以肯定是使用双向链表，为了快速找到尾结点，使用循环双向链表从头结点直接向前就能找到，所以选择D </p>
+</li>
+<li><p>如果对线性表的操作只有两种，即删除第一个元素，在最后一个元素的后面插入新元素，则最好使用？</p>
+<p>A．只有表头指针没有表尾指针的循环单链表</p>
+<p>B．只有表尾指针没有表头指针的循环单链表</p>
+<p>C．非循环双链表</p>
+<p>D．循环双链表</p>
+<p>首先这里需要操作两个内容，一个是删除第一个元素，另一个是在最后插入新元素，所以A的话只有表头指针虽然循环但是还是得往后遍历才行，而B正好符合，因为循环链表的尾指针可以快速到达头结点，C不可能，D的话，循环双链表也可以，但是没有单链表节省空间，故B是最优解</p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" class="category-chain-item">数据结构</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/c-c/">#c/c++</a>
+      
+        <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">#数据结构</a>
+      
+        <a href="/tags/%E7%AE%97%E6%B3%95/">#算法</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>重新学习数据结构与算法（三）</div>
+      <div>https://dogaoy.github.io/2022/09/13/重新学习数据结构与算法（三）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>dogao</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月13日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/25/%E9%87%8D%E6%96%B0%E5%AD%A6%E4%B9%A0%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89/" title="重新学习数据结构与算法（二）">
+                        <span class="hidden-mobile">重新学习数据结构与算法（二）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
