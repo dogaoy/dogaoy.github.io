@@ -37,8 +37,16 @@
 <meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan12.png">
 <meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan13.png">
 <meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan14.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan15.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan16.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan17.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan18.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan19.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan20.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan21.png">
+<meta property="og:image" content="https://dogaoy.github.io/img/article/data_structure/zhanduilie/zhan22.png">
 <meta property="article:published_time" content="2022-09-13T08:00:29.000Z">
-<meta property="article:modified_time" content="2022-09-13T09:23:16.212Z">
+<meta property="article:modified_time" content="2022-09-28T04:17:11.740Z">
 <meta property="article:author" content="dogao">
 <meta property="article:tag" content="c&#x2F;c++">
 <meta property="article:tag" content="数据结构">
@@ -268,7 +276,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.4k 字
+          9.5k 字
         
       </span>
     
@@ -279,7 +287,7 @@
         
         
         
-          45 分钟
+          80 分钟
         
       </span>
     
@@ -422,6 +430,74 @@
 <p>现在我们想要执行出队操作了，那么需要将队首向后移动一格，然后删除队首指向的元素：</p>
 <p><img src="/img/article/data_structure/zhanduilie/zhan14.png" srcset="/img/loading.gif" lazyload></p>
 <p>看起来设计的还挺不错的，不过这样有一个问题，这个队列是一次性的，如果队列经过反复出队入队操作，那么最后指针会直接指向数组的最后，如果我们延长数组的话，也不是一个办法，不可能无限制的延伸下去吧？所以一般我们采用循环队列的形式，来实现重复使用一个数组（不过就没办法扩容了，大小是固定的）</p>
+<p><img src="/img/article/data_structure/zhanduilie/zhan15.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们可以在移动队首队尾指针时，考虑循环的问题，也就是说如果到达了数组尽头，那么就直接从数组的前面重新开始计算，这样就相当于逻辑上都循环了，队首和队尾指针在一开始的时候都指向同一个位置，每入队一个新的元素，依然是先让队尾后移一位，在所指向位置插入元素，出队同理。</p>
+<p>不过这样还是有问题，既然是循环的，那么怎么判断队列是否已满呢？</p>
+<p><img src="/img/article/data_structure/zhanduilie/zhan16.png" srcset="/img/loading.gif" lazyload></p>
+<p>由于队首指针和队尾指针重合时表示队列为空，所以我们只能舍弃一个存储单元，当队尾距离队首一个单元的时候，表示队列已满。</p>
+<p>好了，现在理论讲解完毕，我们可以开始编写代码了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span> E;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> &#123;</span><br>    E * <span class="hljs-built_in">array</span>;<br>    <span class="hljs-type">int</span> capacity;   <span class="hljs-comment">//数组容量</span><br>    <span class="hljs-type">int</span> rear, front;   <span class="hljs-comment">//队尾、队首指针</span><br>&#125;;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> * <span class="hljs-title">ArrayQueue</span>;</span><br></code></pre></td></tr></table></figure>
+
+<p>接着我们来对其进行初始化：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">initQueue</span><span class="hljs-params">(ArrayQueue <span class="hljs-built_in">queue</span>)</span>&#123;<br>    <span class="hljs-built_in">queue</span>-&gt;<span class="hljs-built_in">array</span> = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(E) * <span class="hljs-number">10</span>);<br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">queue</span>-&gt;<span class="hljs-built_in">array</span> == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">queue</span>-&gt;capacity = <span class="hljs-number">10</span>;<br>    <span class="hljs-built_in">queue</span>-&gt;front = <span class="hljs-built_in">queue</span>-&gt;rear = <span class="hljs-number">0</span>;   <span class="hljs-comment">//默认情况下队首和队尾都指向0的位置</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> <span class="hljs-title">queue</span>;</span><br>    initQueue(&amp;<span class="hljs-built_in">queue</span>);   <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接着我们来编写一下入队操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">offerQueue</span><span class="hljs-params">(ArrayQueue <span class="hljs-built_in">queue</span>, E element)</span>&#123;<br>    <span class="hljs-keyword">if</span>((<span class="hljs-built_in">queue</span>-&gt;rear + <span class="hljs-number">1</span>) % <span class="hljs-built_in">queue</span>-&gt;capacity == <span class="hljs-built_in">queue</span>-&gt;front)   <span class="hljs-comment">//先判断队列是否已满，如果队尾下一个就是队首，那么说明已满</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">queue</span>-&gt;rear = (<span class="hljs-built_in">queue</span>-&gt;rear + <span class="hljs-number">1</span>) % <span class="hljs-built_in">queue</span>-&gt;capacity;   <span class="hljs-comment">//队尾先向前移动一位，注意取余计算才能实现循环</span><br>    <span class="hljs-built_in">queue</span>-&gt;<span class="hljs-built_in">array</span>[<span class="hljs-built_in">queue</span>-&gt;rear] = element;   <span class="hljs-comment">//在新的位置插入元素</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>我们来测试一下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">printQueue</span><span class="hljs-params">(ArrayQueue <span class="hljs-built_in">queue</span>)</span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&lt;&lt;&lt; &quot;</span>);<br>    <span class="hljs-type">int</span> i = <span class="hljs-built_in">queue</span>-&gt;front;   <span class="hljs-comment">//遍历队列需要从队首开始</span><br>    <span class="hljs-keyword">do</span> &#123;<br>        i = (i + <span class="hljs-number">1</span>) % <span class="hljs-built_in">queue</span>-&gt;capacity;   <span class="hljs-comment">//先向后循环移动</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, <span class="hljs-built_in">queue</span>-&gt;<span class="hljs-built_in">array</span>[i]);  <span class="hljs-comment">//然后打印当前位置上的元素</span><br>    &#125; <span class="hljs-keyword">while</span> (i != <span class="hljs-built_in">queue</span>-&gt;rear);   <span class="hljs-comment">//当到达队尾时，结束</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&lt;&lt;&lt;\n&quot;</span>);<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> <span class="hljs-title">queue</span>;</span><br>    initQueue(&amp;<span class="hljs-built_in">queue</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123;<br>        offerQueue(&amp;<span class="hljs-built_in">queue</span>, i * <span class="hljs-number">100</span>);<br>    &#125;<br>    printQueue(&amp;<span class="hljs-built_in">queue</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>最后结果如下：</p>
+<p><img src="/img/article/data_structure/zhanduilie/zhan17.png" srcset="/img/loading.gif" lazyload></p>
+<p>我们接着来看出队操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">isEmpty</span><span class="hljs-params">(ArrayQueue <span class="hljs-built_in">queue</span>)</span>&#123;   <span class="hljs-comment">//在出队之前需要先看看容量是否足够</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">queue</span>-&gt;rear == <span class="hljs-built_in">queue</span>-&gt;front;<br>&#125;<br><br>E <span class="hljs-title function_">pollQueue</span><span class="hljs-params">(ArrayQueue <span class="hljs-built_in">queue</span>)</span>&#123;<br>    <span class="hljs-built_in">queue</span>-&gt;front = (<span class="hljs-built_in">queue</span>-&gt;front + <span class="hljs-number">1</span>) % <span class="hljs-built_in">queue</span>-&gt;capacity;   <span class="hljs-comment">//先将队首指针后移</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">queue</span>-&gt;<span class="hljs-built_in">array</span>[<span class="hljs-built_in">queue</span>-&gt;front];   <span class="hljs-comment">//出队，完事</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们来测试一下吧：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> <span class="hljs-title">queue</span>;</span><br>    initQueue(&amp;<span class="hljs-built_in">queue</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123;<br>        offerQueue(&amp;<span class="hljs-built_in">queue</span>, i * <span class="hljs-number">100</span>);<br>    &#125;<br>    printQueue(&amp;<span class="hljs-built_in">queue</span>);<br>    <span class="hljs-keyword">while</span> (!isEmpty(&amp;<span class="hljs-built_in">queue</span>)) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, pollQueue(&amp;<span class="hljs-built_in">queue</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们来看看结果：</p>
+<p><img src="/img/article/data_structure/zhanduilie/zhan18.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到，队列是先进先出的，我们是以什么顺序放入队列中，那么出来的就是是什么顺序。</p>
+<p>同样的，队列也可以使用链表来实现，并且使用链表的话就不需要关心容量之类的问题了，会更加灵活一些：</p>
+<p><img src="/img/article/data_structure/zhanduilie/zhan19.png" srcset="/img/loading.gif" lazyload></p>
+<p>出队时，只需要移除队首指向的下一个元素即可：</p>
+<p><img src="/img/article/data_structure/zhanduilie/zhan20.png" srcset="/img/loading.gif" lazyload></p>
+<p>那么我们就按照这个思路，来编写一下代码吧：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-type">int</span> E;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LNode</span> &#123;</span><br>    E element;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LNode</span> * <span class="hljs-title">next</span>;</span><br>&#125;;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LNode</span> * <span class="hljs-title">Node</span>;</span><br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span>&#123;</span><br>    Node front, rear;<br>&#125;;<br><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> * <span class="hljs-title">LinkedQueue</span>;</span>   <span class="hljs-comment">//因为要存储首位两个指针，所以这里封装一个新的结构体吧</span><br></code></pre></td></tr></table></figure>
+
+<p>接着是初始化，初始化的时候，需要把头结点先创建出来：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">initQueue</span><span class="hljs-params">(LinkedQueue <span class="hljs-built_in">queue</span>)</span>&#123;<br>    Node node = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> LNode));<br>    <span class="hljs-keyword">if</span>(node == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">queue</span>-&gt;front = <span class="hljs-built_in">queue</span>-&gt;rear = node;   <span class="hljs-comment">//一开始两个指针都是指向头结点的，表示队列为空</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> <span class="hljs-title">queue</span>;</span><br>    initQueue(&amp;<span class="hljs-built_in">queue</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>首先是入队操作，入队其实直接在后面插入新的结点就行了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">_Bool</span> <span class="hljs-title function_">offerQueue</span><span class="hljs-params">(LinkedQueue <span class="hljs-built_in">queue</span>, E element)</span>&#123;<br>    Node node = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">struct</span> LNode));<br>    <span class="hljs-keyword">if</span>(node == <span class="hljs-literal">NULL</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    node-&gt;element = element;<br>    <span class="hljs-built_in">queue</span>-&gt;rear-&gt;next = node;   <span class="hljs-comment">//先让尾结点的下一个指向新的结点</span><br>    <span class="hljs-built_in">queue</span>-&gt;rear = node;   <span class="hljs-comment">//然后让队尾指针指向新的尾结点</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>我们来测试一下看看：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">printQueue</span><span class="hljs-params">(LinkedQueue <span class="hljs-built_in">queue</span>)</span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&lt;&lt;&lt; &quot;</span>);<br>    Node node = <span class="hljs-built_in">queue</span>-&gt;front-&gt;next;<br>    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;    <span class="hljs-comment">//注意不能直接判空，因为前面我们没考虑，也就没将新结点next设定为NULL</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, node-&gt;element);<br>        <span class="hljs-keyword">if</span>(node == <span class="hljs-built_in">queue</span>-&gt;rear) <span class="hljs-keyword">break</span>;    <span class="hljs-comment">//当已经打印最后一个元素后，再结束</span><br>        <span class="hljs-keyword">else</span> node = node-&gt;next;<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;&lt;&lt;&lt;\n&quot;</span>);<br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> <span class="hljs-title">queue</span>;</span><br>    initQueue(&amp;<span class="hljs-built_in">queue</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123;<br>        offerQueue(&amp;<span class="hljs-built_in">queue</span>, i*<span class="hljs-number">100</span>);<br>    &#125;<br>    printQueue(&amp;<span class="hljs-built_in">queue</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>测试结果如下：</p>
+<p><img src="/img/article/data_structure/zhanduilie/zhan21.png" srcset="/img/loading.gif" lazyload></p>
+<p>接着是出队操作，出队操作要相对麻烦一点：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c">E <span class="hljs-title function_">pollQueue</span><span class="hljs-params">(LinkedQueue <span class="hljs-built_in">queue</span>)</span>&#123;<br>    E e = <span class="hljs-built_in">queue</span>-&gt;front-&gt;next-&gt;element;<br>    Node node = <span class="hljs-built_in">queue</span>-&gt;front-&gt;next;<br>    <span class="hljs-built_in">queue</span>-&gt;front-&gt;next = <span class="hljs-built_in">queue</span>-&gt;front-&gt;next-&gt;next;  <span class="hljs-comment">//直接让头结点指向下下个结点</span><br>    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">queue</span>-&gt;rear == node) <span class="hljs-built_in">queue</span>-&gt;rear = <span class="hljs-built_in">queue</span>-&gt;front;   <span class="hljs-comment">//如果队尾就是待出队的结点，那么队尾回到队首位置上</span><br>    <span class="hljs-built_in">free</span>(node);   <span class="hljs-comment">//释放内存</span><br>    <span class="hljs-keyword">return</span> e;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样，我们就编写好了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Queue</span> <span class="hljs-title">queue</span>;</span><br>    initQueue(&amp;<span class="hljs-built_in">queue</span>);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; ++i) &#123;<br>        offerQueue(&amp;<span class="hljs-built_in">queue</span>, i*<span class="hljs-number">100</span>);<br>    &#125;<br>    printQueue(&amp;<span class="hljs-built_in">queue</span>);<br>    <span class="hljs-keyword">while</span> (!isEmpty(&amp;<span class="hljs-built_in">queue</span>))&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, pollQueue(&amp;<span class="hljs-built_in">queue</span>));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>测试结果如下：</p>
+<p><img src="/img/article/data_structure/zhanduilie/zhan22.png" srcset="/img/loading.gif" lazyload></p>
+<p>效果和前面的数组实现是一样的，只不过使用链表会更加灵活一些。</p>
+<p><strong>队列练习题：</strong></p>
+<ol>
+<li><p>使用链表方式存储的队列，在进行出队操作时需要？</p>
+<p>A. 仅修改头结点指向    B. 仅修改尾指针    C. 头结点指向、尾指针都要修改    D. 头结点指向、尾指针可能都要修改</p>
+<p>首先出队肯定是要动头结点指向的，但是不一定需要动尾指针，因为只有当尾指针指向的是待出队的元素时才需要，因为执行后队列就为空了，所以需要将队尾指针移回头结点处，选择D </p>
+</li>
+<li><p>引起循环队列队头位置发生变化的操作是？</p>
+<p> A. 出队</p>
+<p> B. 入队<br> C. 获取队头元素<br> D. 获取队尾元素</p>
+<p> 这个题还是很简单的，因为只有出队操作才会使得队头位置后移，所以选择A</p>
+</li>
+</ol>
 
                 
               </div>
@@ -513,6 +589,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/09/27/activiti7%E6%95%B4%E5%90%88/" title="activiti7整合springboot">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">activiti7整合springboot</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
@@ -626,7 +708,7 @@
   
   
 </div>
-
+<style
   </footer>
 
   <!-- Scripts -->
